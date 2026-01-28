@@ -168,6 +168,37 @@
             display: none;
         }
 
+        /* 日付情報（ボタンの外） */
+        .hero-date-info {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            color: var(--text-white);
+        }
+
+        .hero-date-year {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .hero-date-day {
+            font-size: 52px;
+            font-weight: 700;
+        }
+
+        .hero-date-weekday {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .hero-date-time {
+            font-size: 35px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
         /* CTAボタン（吹き出し風） */
         .hero-cta-wrapper {
             position: relative;
@@ -206,8 +237,8 @@
             align-items: center;
             background: linear-gradient(180deg, #3d5a7f 0%, var(--primary-navy) 50%, #1a3a5c 100%);
             color: var(--text-white);
-            padding: 32px 64px;
-            border-radius: 100px;
+            padding: 20px 56px;
+            border-radius: 60px;
             text-decoration: none;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             margin-top: 16px;
@@ -221,36 +252,8 @@
             border-color: rgba(255, 255, 255, 0.8);
         }
 
-        .hero-cta-date {
-            font-size: 22px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
-        }
-
-        .hero-cta-date .year {
-            font-size: 20px;
-        }
-
-        .hero-cta-date .day {
-            font-size: 36px;
-            font-weight: 700;
-        }
-
-        .hero-cta-date .weekday {
-            font-size: 20px;
-            margin-left: 4px;
-        }
-
-        .hero-cta-date .time {
-            font-size: 20px;
-            margin-left: 12px;
-        }
-
         .hero-cta-text {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             margin-top: 4px;
         }
@@ -261,6 +264,16 @@
             margin-top: 8px;
             opacity: 0.85;
         }
+
+        /* ボタン下のオンライン参加可能テキスト */
+        .hero-online-note {
+            margin-top: 20px;
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text-white);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
 
         /* セクション共通 */
         section {
@@ -870,6 +883,33 @@
                 display: inline;
             }
 
+            /* 日付情報（スマホ用） */
+            .hero-date-info {
+                flex-wrap: wrap;
+                gap: 4px;
+                margin-bottom: 20px;
+            }
+
+            .hero-date-year {
+                font-size: 14px;
+            }
+
+            .hero-date-day {
+                font-size: 32px;
+            }
+
+            .hero-date-weekday {
+                font-size: 14px;
+            }
+
+            .hero-date-time {
+                font-size: 20px;
+                width: 100%;
+                text-align: center;
+                margin-left: 0;
+                margin-top: 4px;
+            }
+
             .hero-cta-label {
                 font-size: 12px;
                 padding: 6px 16px;
@@ -877,35 +917,17 @@
             }
 
             .hero-cta {
-                padding: 24px 28px;
-                border-radius: 60px;
-            }
-
-            .hero-cta-date {
-                font-size: 16px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero-cta-date .year {
-                font-size: 14px;
-            }
-
-            .hero-cta-date .day {
-                font-size: 24px;
-            }
-
-            .hero-cta-date .weekday {
-                font-size: 14px;
-            }
-
-            .hero-cta-date .time {
-                font-size: 14px;
-                margin-left: 8px;
+                padding: 14px 28px;
+                border-radius: 50px;
             }
 
             .hero-cta-text {
+                font-size: 18px;
+            }
+
+            .hero-online-note {
                 font-size: 16px;
+                margin-top: 16px;
             }
 
             /* セクション共通 */
@@ -1220,19 +1242,21 @@
             <h1 class="hero-title">地域在宅看護における<br>AI技術の活用の有用性</h1>
             <p class="hero-subtitle">最新のAI技術と看護・介護の融合について、<br class="sp-only">専門家が解説します</p>
 
+            <!-- 日付情報（ボタンの外） -->
+            <div class="hero-date-info">
+                <span class="hero-date-year">2026年</span>
+                <span class="hero-date-day">3月27日</span>
+                <span class="hero-date-weekday">(金)</span>
+                <span class="hero-date-time">18:30〜20:30</span>
+            </div>
+
             <div class="hero-cta-wrapper">
                 <div class="hero-cta-label">参加無料・先着70名！</div>
                 <a href="https://forms.gle/PoKS8vL29y7qfzpc6" class="hero-cta" target="_blank">
-                    <div class="hero-cta-date">
-                        <span class="year">2026</span>
-                        <span class="day">3.27</span>
-                        <span class="weekday">(金)</span>
-                        <span class="time">18:30〜20:30</span>
-                    </div>
-                    <div class="hero-cta-text">申し込みはここをクリック</div>
-                    <div class="hero-cta-sub">オンライン参加可能</div>
+                    <div class="hero-cta-text">申し込みはここをタップ</div>
                 </a>
             </div>
+            <div class="hero-online-note">オンライン参加可能</div>
         </div>
     </section>
 
@@ -1477,19 +1501,21 @@
             <h2 class="cta-title">参加をご希望の方はこちらから</h2>
             <p class="cta-description">地域在宅看護×AI技術の最新情報を手に入れましょう</p>
 
+            <!-- 日付情報（ボタンの外） -->
+            <div class="hero-date-info">
+                <span class="hero-date-year">2026年</span>
+                <span class="hero-date-day">3月27日</span>
+                <span class="hero-date-weekday">(金)</span>
+                <span class="hero-date-time">18:30〜20:30</span>
+            </div>
+
             <div class="hero-cta-wrapper">
                 <div class="hero-cta-label">参加無料・先着70名！</div>
                 <a href="https://forms.gle/PoKS8vL29y7qfzpc6" class="hero-cta cta-section-btn" target="_blank">
-                    <div class="hero-cta-date">
-                        <span class="year">2026</span>
-                        <span class="day">3.27</span>
-                        <span class="weekday">(金)</span>
-                        <span class="time">18:30〜20:30</span>
-                    </div>
-                    <div class="hero-cta-text">申し込みはここをクリック</div>
-                    <div class="hero-cta-sub">オンライン参加可能</div>
+                    <div class="hero-cta-text">申し込みはここをタップ</div>
                 </a>
             </div>
+            <div class="hero-online-note">オンライン参加可能</div>
         </div>
     </section>
 
