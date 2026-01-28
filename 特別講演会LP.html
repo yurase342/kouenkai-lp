@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特別講演会 | 地域在宅看護におけるAI技術の活用の有用性</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+        }
+
+        /* =====================================
+           ファーストビュー - 余白なし
+           ===================================== */
+        .hero {
+            position: relative;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            overflow: hidden;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .hero img {
+            width: 100vw;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* =====================================
+           メイン講師紹介（ファーストビュー内）
+           ===================================== */
+        .main-speaker {
+            background: linear-gradient(135deg, #f0f7fc 0%, #e3f0f8 100%);
+            padding: 30px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            border-top: 4px solid #2B5A8A;
+            border-bottom: 4px solid #2B5A8A;
+        }
+
+        .main-speaker-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 4px solid #2B5A8A;
+            box-shadow: 0 6px 20px rgba(43, 90, 138, 0.3);
+        }
+
+        .main-speaker-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-speaker-info {
+            text-align: left;
+        }
+
+        .main-speaker-label {
+            font-size: 0.85rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: #e74c3c;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .main-speaker-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2B5A8A;
+            margin-bottom: 6px;
+        }
+
+        .main-speaker-title {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        @media (min-width: 768px) {
+            .main-speaker {
+                padding: 40px 30px;
+                gap: 35px;
+            }
+
+            .main-speaker-photo {
+                width: 150px;
+                height: 150px;
+                border: 5px solid #2B5A8A;
+            }
+
+            .main-speaker-label {
+                font-size: 1rem;
+                margin-bottom: 10px;
+                padding: 6px 20px;
+            }
+
+            .main-speaker-name {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .main-speaker-title {
+                font-size: 1.15rem;
+            }
+        }
+
+        /* =====================================
+           イベント基本情報バー（スマホファースト設計）
+           ===================================== */
+        .event-info {
+            background: linear-gradient(135deg, #2B5A8A 0%, #1a3d5c 100%);
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .event-info-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 15px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .info-value.large {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .info-value .day {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .info-value .free {
+            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+            color: #1a3d5c;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.4rem;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            letter-spacing: 0.1em;
+        }
+
+        .info-item.free-highlight {
+            background: rgba(255, 215, 0, 0.15);
+            padding: 15px 8px;
+        }
+
+        .info-sub {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* PC表示時は横並び */
+        @media (min-width: 768px) {
+            .event-info {
+                padding: 50px 20px;
+            }
+
+            .event-info-inner {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+
+            .info-item {
+                background: none;
+                padding: 0;
+            }
+
+            .info-item.full-width {
+                grid-column: auto;
+            }
+
+            .info-label {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .info-value {
+                font-size: 1.8rem;
+            }
+
+            .info-value.large {
+                font-size: 3.5rem;
+            }
+
+            .info-value .day {
+                font-size: 1.4rem;
+            }
+
+            .info-value .free {
+                padding: 15px 50px;
+                font-size: 1.8rem;
+            }
+
+            .info-item.free-highlight {
+                background: rgba(255, 215, 0, 0.1);
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .info-sub {
+                font-size: 1rem;
+                margin-top: 8px;
+            }
+        }
+
+        /* =====================================
+           CTA ボタン（スマホファースト）
+           ===================================== */
+        .cta-section {
+            text-align: center;
+            padding: 20px 15px 30px;
+            background: linear-gradient(180deg, #f8fbfd 0%, #ffffff 100%);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 0.03em;
+            width: 90%;
+            max-width: 350px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.5);
+        }
+
+        @media (min-width: 768px) {
+            .cta-section {
+                padding: 55px 20px;
+            }
+
+            .cta-button {
+                padding: 22px 70px;
+                font-size: 1.35rem;
+                width: auto;
+                max-width: none;
+            }
+        }
+
+        /* =====================================
+           セクション共通スタイル
+           ===================================== */
+        section {
+            padding: 85px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #2B5A8A;
+            margin-bottom: 55px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 65px;
+            height: 4px;
+            background: linear-gradient(90deg, #2B5A8A, #4a7aa8);
+            margin: 22px auto 0;
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* =====================================
+           講演内容セクション
+           ===================================== */
+        .content-section {
+            background: white;
+        }
+
+        .content-text {
+            font-size: 1rem;
+            line-height: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #444;
+        }
+
+        @media (max-width: 480px) {
+            .content-text {
+                font-size: 0.95rem;
+                line-height: 1.9;
+                padding: 0 20px;
+                text-align: center;
+            }
+        }
+
+        /* スマホのみ改行 */
+        .sp-only {
+            display: none;
+        }
+        @media (max-width: 480px) {
+            .sp-only {
+                display: inline;
+            }
+        }
+
+        .target-list {
+            margin-top: 45px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .target-item {
+            background: linear-gradient(135deg, #E8F4FC 0%, #D4E8F5 100%);
+            color: #2B5A8A;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .target-list {
+                max-width: 320px;
+                gap: 10px;
+            }
+            .target-item {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* =====================================
+           講師紹介セクション
+           ===================================== */
+        .speakers-section {
+            background: #f8fbfd;
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .speaker-card {
+            background: white;
+            border-radius: 22px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 12px 45px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .speaker-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #E8F4FC 0%, #D4E8F5 100%);
+            margin: 0 auto 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 25px rgba(43, 90, 138, 0.15);
+        }
+
+        .speaker-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .speaker-time {
+            background: linear-gradient(135deg, #2B5A8A 0%, #3a6a9a 100%);
+            color: white;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .speaker-name {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #2B5A8A;
+            margin-bottom: 12px;
+        }
+
+        .speaker-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .speaker-desc {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.9;
+            text-align: left;
+        }
+
+        /* =====================================
+           参加方法セクション
+           ===================================== */
+        .participation-section {
+            background: white;
+        }
+
+        .participation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .participation-card {
+            background: linear-gradient(145deg, #f8fbfd 0%, #ffffff 100%);
+            border-radius: 22px;
+            padding: 45px 35px;
+            text-align: center;
+            border: 2px solid #E8F4FC;
+            transition: all 0.3s ease;
+        }
+
+        .participation-card:hover {
+            border-color: #D4E8F5;
+            box-shadow: 0 10px 35px rgba(43, 90, 138, 0.1);
+        }
+
+        .participation-icon {
+            font-size: 55px;
+            margin-bottom: 22px;
+        }
+
+        .participation-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2B5A8A;
+            margin-bottom: 18px;
+        }
+
+        .participation-desc {
+            font-size: 0.98rem;
+            color: #555;
+            line-height: 1.9;
+        }
+
+        /* オンライン参加の流れ */
+        .online-flow {
+            background: linear-gradient(145deg, #E8F4FC 0%, #D4E8F5 100%);
+            border-radius: 22px;
+            padding: 45px;
+            margin-top: 55px;
+        }
+
+        .online-flow h3 {
+            font-size: 1.35rem;
+            color: #2B5A8A;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .flow-step {
+            text-align: center;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .flow-number {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #2B5A8A 0%, #3a6a9a 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 auto 18px;
+            box-shadow: 0 6px 20px rgba(43, 90, 138, 0.3);
+        }
+
+        .flow-text {
+            font-size: 0.98rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* =====================================
+           申し込みフォームセクション
+           ===================================== */
+        .form-section {
+            background: #f8fbfd;
+            padding: 85px 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 45px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+        }
+
+        .google-form-embed {
+            width: 100%;
+            min-height: 650px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* =====================================
+           主催者情報セクション
+           ===================================== */
+        .organizer-section {
+            background: white;
+            text-align: center;
+        }
+
+        .organizer-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2B5A8A;
+            margin-bottom: 25px;
+        }
+
+        .organizer-info {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 2.2;
+        }
+
+        /* =====================================
+           フッター
+           ===================================== */
+        footer {
+            background: linear-gradient(135deg, #2B5A8A 0%, #1a3d5c 100%);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* =====================================
+           レスポンシブデザイン
+           ===================================== */
+        @media (max-width: 900px) {
+            .cta-button {
+                padding: 18px 45px;
+                font-size: 1.15rem;
+            }
+
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .flow-step {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                text-align: left;
+            }
+
+            .flow-number {
+                margin: 0;
+                flex-shrink: 0;
+            }
+
+            .form-container {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.05rem;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- =====================================
+         ファーストビュー（ヒーローセクション）
+         チラシ上部のデザインを再現
+         ===================================== -->
+    <section class="hero">
+        <img src="チラシ_2対1.png" alt="特別講演会 - 地域在宅看護におけるAI技術の活用の有用性">
+    </section>
+
+    <!-- =====================================
+         イベント基本情報（ファーストビュー内・最優先）
+         ===================================== -->
+    <section class="event-info">
+        <div class="event-info-inner">
+            <div class="info-item">
+                <p class="info-label">開催日</p>
+                <p class="info-value large">2026.<span style="font-size: 1.3em;">3/27</span><span class="day">（金）</span></p>
+            </div>
+            <div class="info-item">
+                <p class="info-label">時間</p>
+                <p class="info-value large">18:30<span style="font-size: 0.6em; font-weight: 400;">〜</span>20:30</p>
+            </div>
+            <div class="info-item free-highlight full-width">
+                <p class="info-value"><span class="free">参加費 無料</span></p>
+            </div>
+            <div class="info-item">
+                <p class="info-label">会場</p>
+                <p class="info-value">寝屋川市立<br>市民会館</p>
+                <p class="info-sub">3階 講義室</p>
+            </div>
+            <div class="info-item">
+                <p class="info-label">定員</p>
+                <p class="info-value">先着<span style="font-size: 1.4em; font-weight: 900;">70</span>名</p>
+                <p class="info-sub">オンライン参加可</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================
+         メイン講師（ファーストビュー内）
+         ===================================== -->
+    <div class="main-speaker">
+        <div class="main-speaker-photo">
+            <img src="石井先生.jpg" alt="石井豊恵 氏">
+        </div>
+        <div class="main-speaker-info">
+            <p class="main-speaker-label">メイン講師</p>
+            <p class="main-speaker-name">石井 豊恵 氏</p>
+            <p class="main-speaker-title">大阪大学 大学院医学系研究科<br>保健学専攻 教授</p>
+        </div>
+    </div>
+
+    <!-- =====================================
+         CTA（申し込みボタン）
+         ===================================== -->
+    <section class="cta-section">
+        <a href="#apply" class="cta-button">今すぐ申し込む（無料）</a>
+    </section>
+
+    <!-- =====================================
+         講演内容
+         ===================================== -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">講演内容</h2>
+            <p class="content-text">
+                AI技術は、医療・介護の現場を<br>どのように変えていくのでしょうか。<br><br>
+                地域在宅看護の最前線で活躍する<br>専門家たちが、実践的な活用事例と<br>これからの可能性についてお話しします。
+            </p>
+            <div class="target-list">
+                <span class="target-item">看護師・保健師の方</span>
+                <span class="target-item">介護職の方</span>
+                <span class="target-item">医療関係者の方</span>
+                <span class="target-item">AI技術に興味のある方</span>
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <span class="target-item">地域医療に関わる方</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================
+         講師紹介
+         ===================================== -->
+    <section class="speakers-section">
+        <div class="container">
+            <h2 class="section-title">講師紹介</h2>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-photo">
+                        <img src="石井先生.jpg" alt="石井 豊恵 氏">
+                    </div>
+                    <span class="speaker-time">18:30〜</span>
+                    <h3 class="speaker-name">石井 豊恵 氏</h3>
+                    <p class="speaker-title">大阪大学 大学院医学系研究科<br>保健学専攻 教授</p>
+                    <p class="speaker-desc">
+                        看護師・保健師としての知見を基盤に、テクノロジーを融合させた「看護情報学」を専門とする。ビーコンやモバイル端末を用いた看護師の動線推定手法の検証など、看護業務の数量化・可視化に注力。ITヘルスケア学会や日本生活支援工学会等に所属し、工学と看護学の架け橋として、デジタル技術の実装による看護マネジメントの高度化に注力している。
+                    </p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-photo">
+                        <img src="岡田 真治.jpg" alt="岡田 真治 氏">
+                    </div>
+                    <span class="speaker-time">19:30〜</span>
+                    <h3 class="speaker-name">岡田 真治 氏</h3>
+                    <p class="speaker-title">株式会社KASEKI CREATIVE<br>代表取締役社長</p>
+                    <p class="speaker-desc">
+                        AI活用による業務効率化の専門チーム。「その人にしかできない仕事」に集中できる環境づくりを支援。これまで美容サロン・教育機関など幅広い業界で、バックヤード業務改善からアプリ開発まで実績多数。今回は、メイン講師の研究・論文作成におけるAI活用をサポート。最小コスト・最短期間で成果を届けることを信条とする。
+                    </p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-photo">
+                        <img src="長木 辰樹.JPG" alt="長木 辰樹 氏">
+                    </div>
+                    <span class="speaker-time">19:30〜</span>
+                    <h3 class="speaker-name">長木 辰樹 氏</h3>
+                    <p class="speaker-title">AI動画開発エンジニア<br>生成AI導入支援スペシャリスト</p>
+                    <p class="speaker-desc">
+                        AI活用による業務効率化の専門チーム。「その人にしかできない仕事」に集中できる環境づくりを支援。これまで美容サロン・教育機関など幅広い業界で、バックヤード業務改善からアプリ開発まで実績多数。今回は、メイン講師の研究・論文作成におけるAI活用をサポート。最小コスト・最短期間で成果を届けることを信条とする。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================
+         参加方法
+         ===================================== -->
+    <section class="participation-section">
+        <div class="container">
+            <h2 class="section-title">参加方法</h2>
+            <div class="participation-cards">
+                <div class="participation-card">
+                    <h3 class="participation-title">会場参加</h3>
+                    <p class="participation-desc">
+                        <strong>寝屋川市立市民会館</strong><br>
+                        3階 講義室<br><br>
+                        〒572-0838<br>
+                        大阪府寝屋川市秦町41番1号<br><br>
+                        <strong style="color: #2B5A8A;">定員：先着70名</strong>
+                    </p>
+                </div>
+                <div class="participation-card">
+                    <h3 class="participation-title">オンライン参加</h3>
+                    <p class="participation-desc">
+                        遠方の方はオンラインで<br>ご参加いただけます。<br><br>
+                        お申し込み後、<br>当日までにZoomリンクを<br>メールでお送りします。<br><br>
+                        <strong style="color: #2B5A8A;">※事前予約制</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="online-flow">
+                <h3>オンライン参加の流れ</h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p class="flow-text">下記フォームから<br>お申し込み</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p class="flow-text">メールで<br>Zoomリンク受信</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p class="flow-text">当日リンクから<br>ご参加</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================
+         申し込みフォーム（Googleフォーム埋め込み）
+         ===================================== -->
+    <section class="form-section" id="apply">
+        <div class="container">
+            <h2 class="section-title">お申し込み</h2>
+            <div class="form-container">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLScTjqvq0BHsuQpurgw7niX4yfobVprHCeMMHfjyDulSTcipDw/viewform?embedded=true"
+                    class="google-form-embed"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0">
+                    読み込んでいます…
+                </iframe>
+                <p style="text-align: center; margin-top: 20px; color: #666;">
+                    フォームが表示されない場合は<br>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScTjqvq0BHsuQpurgw7niX4yfobVprHCeMMHfjyDulSTcipDw/viewform" target="_blank" style="color: #2B5A8A; font-weight: 600;">こちらから直接お申し込み</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================
+         主催者情報
+         ===================================== -->
+    <section class="organizer-section">
+        <div class="container">
+            <h2 class="section-title">主催者について</h2>
+            <p class="organizer-name">NPO法人 日本介護予防推進協会</p>
+            <p class="organizer-message">
+                これからの超高齢社会において、地域在宅ケアとAI技術の融合は避けて通れないテーマです。<br>
+                介護・看護の枠を超え、医療・研究・経営といった多角的な視点から、AI技術がもたらす革新とその有用性を探ります。<br><br>
+                当協会はテクノロジーの力で誰もが健やかに暮らせる地域社会の実現を目指しております。<br>
+                本テーマに関心をお持ちの幅広い専門職、事業主の皆様のご参加をお待ちしております。
+            </p>
+            <p class="organizer-info">
+                〒572-0855 大阪府寝屋川市下神田町28番2号<br>
+                TEL: 070-3323-8490
+            </p>
+        </div>
+    </section>
+
+    <!-- =====================================
+         フッター
+         ===================================== -->
+    <footer>
+        <p>&copy; 2026 NPO法人 日本介護予防推進協会 All Rights Reserved.</p>
+    </footer>
+
+    <!-- スムーススクロール -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

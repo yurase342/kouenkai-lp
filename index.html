@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特別講演会 | 地域在宅看護におけるAI技術の活用の有用性</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            line-height: 1.8;
+            background-color: #faf8f5;
+        }
+
+        /* カラー変数（チラシ統一：紺 + 白/ベージュ + コーラルピンクアクセント） */
+        :root {
+            --primary-navy: #2d4a6f;
+            --primary-navy-dark: #1a3a5c;
+            --primary-navy-darker: #0f2540;
+            --accent-pink: #d4736a;
+            --accent-pink-light: #e8928a;
+            --bg-light: #faf8f5;
+            --bg-white: #ffffff;
+            --bg-beige: #f5f2ed;
+            --text-dark: #1a1a1a;
+            --text-gray: #666666;
+            --text-white: #ffffff;
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-logo span {
+            color: var(--primary-navy);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: color 0.3s, background 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-navy-dark);
+            background: rgba(45, 74, 111, 0.08);
+        }
+
+        .header-cta {
+            background: var(--primary-navy);
+            color: var(--text-white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-navy-dark);
+        }
+
+        .header-cta::after {
+            content: "→";
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background: linear-gradient(180deg, rgba(26, 58, 92, 0.55) 0%, rgba(15, 37, 64, 0.65) 100%),
+                        url('LP ファーストビュー.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-white);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 56px;
+            font-weight: 400;
+        }
+
+        /* スマホ専用改行（PCでは非表示） */
+        .sp-only {
+            display: none;
+        }
+
+        /* CTAボタン（吹き出し風） */
+        .hero-cta-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-cta-label {
+            background: var(--accent-pink);
+            color: var(--text-white);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        .hero-cta-label::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--accent-pink);
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--primary-navy);
+            color: var(--text-white);
+            padding: 32px 64px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 16px;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(45, 74, 111, 0.4);
+        }
+
+        .hero-cta-date {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .hero-cta-date .year {
+            font-size: 18px;
+        }
+
+        .hero-cta-date .day {
+            font-size: 36px;
+            font-weight: 900;
+        }
+
+        .hero-cta-date .weekday {
+            font-size: 16px;
+            margin-left: 4px;
+        }
+
+        .hero-cta-date .time {
+            font-size: 18px;
+            margin-left: 12px;
+        }
+
+        .hero-cta-text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .hero-cta-sub {
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        /* セクション共通 */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            color: var(--primary-navy);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* セミナーについて */
+        .about {
+            background: var(--bg-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            line-height: 2;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+        }
+
+        .about-target {
+            background: var(--bg-beige);
+            padding: 32px 40px;
+            border-radius: 12px;
+        }
+
+        .about-target-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .about-target-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .about-target-list li {
+            font-size: 15px;
+            color: var(--text-dark);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .about-target-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-navy);
+            border-radius: 50%;
+        }
+
+        /* タイムテーブル */
+        .timetable {
+            background: var(--bg-beige);
+        }
+
+        .timetable-list {
+            border-left: 2px solid var(--primary-navy);
+            padding-left: 0;
+        }
+
+        .timetable-item {
+            display: flex;
+            gap: 40px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .timetable-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 48px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-navy);
+            border-radius: 50%;
+        }
+
+        .timetable-item:last-child {
+            border-bottom: none;
+        }
+
+        .timetable-time {
+            min-width: 100px;
+            padding-left: 32px;
+        }
+
+        .timetable-time-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .timetable-content {
+            flex: 1;
+        }
+
+        .timetable-session {
+            font-size: 12px;
+            color: var(--primary-navy);
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .timetable-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .timetable-description {
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .timetable-speakers {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .timetable-speaker {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-white);
+            padding: 12px 20px 12px 12px;
+            border-radius: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .timetable-speaker img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .timetable-speaker-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .timetable-speaker-title {
+            font-size: 11px;
+            color: var(--text-gray);
+        }
+
+        /* 講演者セクション */
+        .speakers {
+            background: var(--bg-white);
+        }
+
+        /* 基調講演者（石井先生）- 横長カード */
+        .speaker-card-keynote {
+            display: flex;
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 32px;
+        }
+
+        .speaker-card-keynote .speaker-image-wrapper {
+            width: 40%;
+            min-width: 280px;
+        }
+
+        .speaker-card-keynote .speaker-image {
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+
+        .speaker-card-keynote .speaker-info {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .speaker-role-tag {
+            display: inline-block;
+            background: var(--primary-navy);
+            color: var(--text-white);
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+
+        .speaker-card-keynote .speaker-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .speaker-card-keynote .speaker-title {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* デモ担当者（岡田・長木）- 2分割 */
+        .speakers-demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .speaker-card-demo {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .speaker-card-demo .speaker-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speaker-card-demo .speaker-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        /* 岡田さん：顔を中心に胸から上 */
+        .speaker-image-okada {
+            object-position: center 18%;
+        }
+
+        /* 長木さん：顔を中心に胸から上 */
+        .speaker-image-nagaki {
+            object-position: center 12%;
+        }
+
+        .speaker-card-demo .speaker-role-tag {
+            background: var(--bg-beige);
+            color: var(--primary-navy);
+        }
+
+        .speaker-card-demo .speaker-info {
+            padding: 24px;
+        }
+
+        .speaker-card-demo .speaker-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .speaker-card-demo .speaker-title {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* 開催概要 */
+        .details {
+            background: var(--bg-white);
+        }
+
+        .details-table {
+            max-width: 700px;
+            margin: 0 auto;
+            border-top: 2px solid var(--primary-navy);
+        }
+
+        .details-row {
+            display: flex;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .details-label {
+            width: 140px;
+            flex-shrink: 0;
+            padding: 20px 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            background: var(--bg-beige);
+            padding-left: 20px;
+        }
+
+        .details-value {
+            flex: 1;
+            padding: 20px 24px;
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .details-highlight {
+            color: var(--accent-pink);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .details-sub {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--bg-white);
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-beige);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 24px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            background: var(--primary-navy);
+            color: var(--text-white);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 28px 24px 72px;
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.9;
+        }
+
+        /* CTA セクション */
+        .cta {
+            background: linear-gradient(180deg, var(--primary-navy-dark) 0%, var(--primary-navy-darker) 100%);
+            text-align: center;
+            padding: 100px 24px;
+            position: relative;
+            color: var(--text-white);
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 115, 106, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-label {
+            color: var(--accent-pink-light);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .cta-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-white);
+        }
+
+        .cta-description {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 48px;
+        }
+
+        /* CTAセクション内のボタン - 白ボーダー */
+        .cta-section-btn {
+            border: 3px solid rgba(255,255,255,0.6);
+        }
+
+        .cta-section-btn:hover {
+            border-color: rgba(255,255,255,0.9);
+        }
+
+        /* フッター */
+        footer {
+            background: var(--primary-navy-darker);
+            padding: 64px 24px;
+            color: var(--text-white);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 16px;
+        }
+
+        .footer-logo span {
+            color: var(--text-white);
+        }
+
+        .footer-organizer {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .footer-contact {
+            text-align: right;
+        }
+
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+        }
+
+        /* レスポンシブ - タブレット */
+        @media (max-width: 1024px) {
+            .speaker-card-keynote {
+                flex-direction: column;
+            }
+
+            .speaker-card-keynote .speaker-image-wrapper {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .speaker-card-keynote .speaker-image {
+                height: 300px;
+                min-height: auto;
+            }
+
+            .speaker-card-keynote .speaker-info {
+                padding: 28px;
+            }
+
+            .speakers-demo-grid {
+                gap: 20px;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+
+        /* レスポンシブ - スマホ */
+        @media (max-width: 768px) {
+            /* ヘッダー */
+            nav {
+                display: none;
+            }
+
+            .header-inner {
+                padding: 0 16px;
+            }
+
+            .header-cta {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            /* ヒーロー */
+            .hero {
+                min-height: auto;
+                padding: 100px 16px 60px;
+            }
+
+            .hero-label {
+                font-size: 12px;
+                letter-spacing: 1px;
+                margin-bottom: 16px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+                margin-bottom: 16px;
+                letter-spacing: 0;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+                margin-bottom: 40px;
+            }
+
+            /* スマホ専用改行を表示 */
+            .sp-only {
+                display: inline;
+            }
+
+            .hero-cta-label {
+                font-size: 12px;
+                padding: 6px 16px;
+                top: -16px;
+            }
+
+            .hero-cta {
+                padding: 24px 28px;
+                border-radius: 60px;
+            }
+
+            .hero-cta-date {
+                font-size: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-cta-date .year {
+                font-size: 14px;
+            }
+
+            .hero-cta-date .day {
+                font-size: 24px;
+            }
+
+            .hero-cta-date .weekday {
+                font-size: 14px;
+            }
+
+            .hero-cta-date .time {
+                font-size: 14px;
+                margin-left: 8px;
+            }
+
+            .hero-cta-text {
+                font-size: 16px;
+            }
+
+            /* セクション共通 */
+            section {
+                padding: 60px 16px;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .section-label {
+                font-size: 12px;
+                letter-spacing: 2px;
+                margin-bottom: 12px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            /* 講演会について */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .about-content p {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+
+            .about-feature {
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .about-feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .about-feature-text {
+                font-size: 13px;
+            }
+
+            /* タイムテーブル */
+            .timetable-list {
+                border-left-width: 2px;
+            }
+
+            .timetable-item {
+                flex-direction: column;
+                gap: 12px;
+                padding: 24px 0;
+            }
+
+            .timetable-item::before {
+                left: -6px;
+                top: 32px;
+                width: 10px;
+                height: 10px;
+            }
+
+            .timetable-time {
+                min-width: auto;
+                padding-left: 24px;
+            }
+
+            .timetable-time-text {
+                font-size: 16px;
+            }
+
+            .timetable-content {
+                padding-left: 24px;
+            }
+
+            .timetable-session {
+                font-size: 11px;
+            }
+
+            .timetable-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .timetable-description {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
+            .timetable-speakers {
+                gap: 12px;
+            }
+
+            .timetable-speaker {
+                padding: 10px 16px 10px 10px;
+                gap: 12px;
+            }
+
+            .timetable-speaker img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .timetable-speaker-name {
+                font-size: 13px;
+            }
+
+            .timetable-speaker-title {
+                font-size: 10px;
+            }
+
+            /* 講演者 */
+            .speaker-card-keynote {
+                flex-direction: column;
+            }
+
+            .speaker-card-keynote .speaker-image-wrapper {
+                width: 100%;
+            }
+
+            .speaker-card-keynote .speaker-image {
+                height: 250px;
+                min-height: auto;
+            }
+
+            .speaker-card-keynote .speaker-info {
+                padding: 20px;
+            }
+
+            .speaker-card-keynote .speaker-name {
+                font-size: 20px;
+            }
+
+            .speakers-demo-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .speaker-card-demo .speaker-info {
+                padding: 16px;
+            }
+
+            .speaker-role-tag {
+                font-size: 10px;
+                padding: 4px 10px;
+                margin-bottom: 10px;
+            }
+
+            /* 開催概要 */
+            .details-row {
+                flex-direction: column;
+            }
+
+            .details-label {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .details-value {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .details-highlight {
+                font-size: 16px;
+            }
+
+            /* 講演会について */
+            .about-target {
+                padding: 24px;
+            }
+
+            .about-target-title {
+                font-size: 14px;
+            }
+
+            .about-target-list li {
+                font-size: 13px;
+            }
+
+            /* FAQ */
+            .faq-question {
+                padding: 20px;
+                font-size: 14px;
+                gap: 12px;
+            }
+
+            .faq-q {
+                min-width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+
+            .faq-answer {
+                padding: 0 20px 20px 56px;
+                font-size: 13px;
+            }
+
+            /* CTA */
+            .cta {
+                padding: 60px 16px;
+            }
+
+            .cta-title {
+                font-size: 22px;
+            }
+
+            .cta-description {
+                font-size: 14px;
+                margin-bottom: 32px;
+            }
+
+            /* フッター */
+            footer {
+                padding: 40px 16px;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                gap: 24px;
+                margin-bottom: 32px;
+            }
+
+            .footer-logo {
+                font-size: 12px;
+            }
+
+            .footer-organizer {
+                font-size: 12px;
+            }
+
+            .footer-contact {
+                text-align: left;
+            }
+
+            .footer-contact p {
+                font-size: 12px;
+            }
+
+            .footer-copyright {
+                font-size: 10px;
+                padding-top: 24px;
+            }
+        }
+
+        /* レスポンシブ - 小型スマホ */
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-cta {
+                padding: 20px 24px;
+            }
+
+            .hero-cta-date .day {
+                font-size: 22px;
+            }
+
+            .hero-cta-text {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .speaker-image {
+                height: 240px;
+            }
+        }
+
+        /* スクロールフェードインアニメーション */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="header-inner">
+            <div class="header-logo">
+                <span>特別講演会</span> 2026
+            </div>
+            <nav>
+                <a href="#about">講演会について</a>
+                <a href="#timetable">タイムテーブル</a>
+                <a href="#speakers">講演者</a>
+                <a href="#faq">よくある質問</a>
+            </nav>
+            <a href="https://forms.gle/PoKS8vL29y7qfzpc6" class="header-cta" target="_blank">今すぐ申し込む</a>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-label">地域在宅看護×AI技術</p>
+            <h1 class="hero-title">地域在宅看護における<br>AI技術の活用の有用性</h1>
+            <p class="hero-subtitle">最新のAI技術と看護・介護の融合について、<br class="sp-only">専門家が解説します</p>
+
+            <div class="hero-cta-wrapper">
+                <div class="hero-cta-label">参加無料・先着70名！</div>
+                <a href="https://forms.gle/PoKS8vL29y7qfzpc6" class="hero-cta" target="_blank">
+                    <div class="hero-cta-date">
+                        <span class="year">2026</span>
+                        <span class="day">3.27</span>
+                        <span class="weekday">(金)</span>
+                        <span class="time">18:30〜20:30</span>
+                    </div>
+                    <div class="hero-cta-text">今すぐ講演会に申し込む</div>
+                    <div class="hero-cta-sub">オンライン参加可能</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- セミナーについて -->
+    <section class="about" id="about">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <p class="section-label">About</p>
+                <h2 class="section-title">講演会について</h2>
+            </div>
+
+            <div class="about-grid fade-in">
+                <div class="about-content">
+                    <p>
+                        地域在宅看護の現場において、AI技術がどのように活用され、どのような有用性があるのかを専門家が解説します。
+                    </p>
+                    <p>
+                        大阪大学大学院の教授による基調講演と、実際のAIデモンストレーションを通じて、最新のAI技術と看護・介護の融合について実践的な知見を得られる貴重な機会です。
+                    </p>
+                </div>
+
+                <div class="about-target">
+                    <h3 class="about-target-title">こんな方におすすめ</h3>
+                    <ul class="about-target-list">
+                        <li>訪問看護ステーションの管理者・経営者の方</li>
+                        <li>介護施設で働くスタッフの方</li>
+                        <li>AI技術の医療・介護への活用に興味がある方</li>
+                        <li>地域包括ケアに携わる専門職の方</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- タイムテーブル -->
+    <section class="timetable" id="timetable">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <p class="section-label">Timetable</p>
+                <h2 class="section-title">タイムテーブル</h2>
+            </div>
+
+            <div class="timetable-list fade-in">
+                <div class="timetable-item">
+                    <div class="timetable-time">
+                        <div class="timetable-time-text">18:30 -</div>
+                    </div>
+                    <div class="timetable-content">
+                        <div class="timetable-session">Session 01</div>
+                        <div class="timetable-title">基調講演</div>
+                        <div class="timetable-description">
+                            地域在宅看護におけるAI技術の最新動向と、実際の現場での活用事例についてお話しします。
+                        </div>
+                        <div class="timetable-speakers">
+                            <div class="timetable-speaker">
+                                <img src="石井先生.jpg" alt="石井豊恵" style="object-position: center 30%;">
+                                <div>
+                                    <div class="timetable-speaker-name">石井 豊恵 氏</div>
+                                    <div class="timetable-speaker-title">大阪大学大学院医学系研究科保健学専攻 教授</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-item">
+                    <div class="timetable-time">
+                        <div class="timetable-time-text">19:30 -</div>
+                    </div>
+                    <div class="timetable-content">
+                        <div class="timetable-session">Session 02</div>
+                        <div class="timetable-title">AIデモンストレーション</div>
+                        <div class="timetable-description">
+                            実際のAIツールを使った業務効率化のデモをご覧いただきます。訪問看護記録の作成支援など、すぐに活用できる事例をご紹介。
+                        </div>
+                        <div class="timetable-speakers">
+                            <div class="timetable-speaker">
+                                <img src="岡田 真治３.jpg" alt="岡田真治" style="object-position: center 18%;">
+                                <div>
+                                    <div class="timetable-speaker-name">岡田 真治 氏</div>
+                                    <div class="timetable-speaker-title">株式会社KASEKI CREATIVE 代表取締役社長</div>
+                                </div>
+                            </div>
+                            <div class="timetable-speaker">
+                                <img src="長木 辰樹.JPG" alt="長木辰樹" style="object-position: center 15%;">
+                                <div>
+                                    <div class="timetable-speaker-name">長木 辰樹 氏</div>
+                                    <div class="timetable-speaker-title">AI駆動開発エンジニア / 生成AI導入支援スペシャリスト</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timetable-item">
+                    <div class="timetable-time">
+                        <div class="timetable-time-text">20:30</div>
+                    </div>
+                    <div class="timetable-content">
+                        <div class="timetable-title">終了</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 講演者 -->
+    <section class="speakers" id="speakers">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <p class="section-label">Speakers</p>
+                <h2 class="section-title">講演者</h2>
+            </div>
+
+            <!-- 基調講演者（横長カード） -->
+            <div class="speaker-card-keynote fade-in">
+                <div class="speaker-image-wrapper">
+                    <img src="石井先生.jpg" alt="石井豊恵" class="speaker-image">
+                </div>
+                <div class="speaker-info">
+                    <div class="speaker-role-tag">基調講演</div>
+                    <div class="speaker-name">石井 豊恵 氏</div>
+                    <div class="speaker-title">大阪大学大学院医学系研究科<br>保健学専攻 教授</div>
+                </div>
+            </div>
+
+            <!-- デモ担当者（2分割） -->
+            <div class="speakers-demo-grid fade-in">
+                <div class="speaker-card-demo">
+                    <div class="speaker-image-wrapper">
+                        <img src="岡田 真治３.jpg" alt="岡田真治" class="speaker-image speaker-image-okada">
+                    </div>
+                    <div class="speaker-info">
+                        <div class="speaker-role-tag">AIデモ</div>
+                        <div class="speaker-name">岡田 真治 氏</div>
+                        <div class="speaker-title">株式会社KASEKI CREATIVE<br>代表取締役社長</div>
+                    </div>
+                </div>
+
+                <div class="speaker-card-demo">
+                    <div class="speaker-image-wrapper">
+                        <img src="長木 辰樹.JPG" alt="長木辰樹" class="speaker-image speaker-image-nagaki">
+                    </div>
+                    <div class="speaker-info">
+                        <div class="speaker-role-tag">AIデモ</div>
+                        <div class="speaker-name">長木 辰樹 氏</div>
+                        <div class="speaker-title">AI駆動開発エンジニア<br>生成AI導入支援スペシャリスト</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 開催概要 -->
+    <section class="details" id="details">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <p class="section-label">Details</p>
+                <h2 class="section-title">開催概要</h2>
+            </div>
+
+            <div class="details-table fade-in">
+                <div class="details-row">
+                    <div class="details-label">開催日時</div>
+                    <div class="details-value">2026年3月27日（金）18:30〜20:30</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">会場</div>
+                    <div class="details-value">
+                        寝屋川市立市民会館 3階 講義室
+                        <div class="details-sub">大阪府寝屋川市秦町41番1号</div>
+                    </div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">参加費</div>
+                    <div class="details-value"><span class="details-highlight">無料</span></div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">定員</div>
+                    <div class="details-value">先着70名</div>
+                </div>
+                <div class="details-row">
+                    <div class="details-label">参加方法</div>
+                    <div class="details-value">
+                        会場参加 / オンライン参加（遠方の方）
+                        <div class="details-sub">※オンライン参加の方には、当日参加用のZoomリンクをお送りします</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <p class="section-label">FAQ</p>
+                <h2 class="section-title">よくある質問</h2>
+            </div>
+
+            <div class="faq-list fade-in">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-q">Q</div>
+                        <div>参加費はかかりますか？</div>
+                    </div>
+                    <div class="faq-answer">いいえ、本講演会は参加無料です。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-q">Q</div>
+                        <div>オンラインで参加できますか？</div>
+                    </div>
+                    <div class="faq-answer">はい、遠方の方はオンラインでのご参加も可能です。お申し込み時にオンライン参加をお選びください。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-q">Q</div>
+                        <div>定員に達した場合はどうなりますか？</div>
+                    </div>
+                    <div class="faq-answer">先着70名となっておりますので、定員に達し次第、受付を終了させていただきます。お早めにお申し込みください。</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-q">Q</div>
+                        <div>駐車場はありますか？</div>
+                    </div>
+                    <div class="faq-answer">会場には駐車場がございますが、台数に限りがあるため、公共交通機関でのご来場をおすすめいたします。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-content fade-in">
+            <p class="cta-label">Contact</p>
+            <h2 class="cta-title">参加をご希望の方はこちらから</h2>
+            <p class="cta-description">地域在宅看護×AI技術の最新情報を手に入れましょう</p>
+
+            <div class="hero-cta-wrapper">
+                <div class="hero-cta-label">参加無料・先着70名！</div>
+                <a href="https://forms.gle/PoKS8vL29y7qfzpc6" class="hero-cta cta-section-btn" target="_blank">
+                    <div class="hero-cta-date">
+                        <span class="year">2026</span>
+                        <span class="day">3.27</span>
+                        <span class="weekday">(金)</span>
+                        <span class="time">18:30〜20:30</span>
+                    </div>
+                    <div class="hero-cta-text">今すぐ講演会に申し込む</div>
+                    <div class="hero-cta-sub">オンライン参加可能</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-main">
+                <div>
+                    <div class="footer-logo"><span>特別講演会</span> 2026</div>
+                    <div class="footer-organizer">
+                        主催：NPO法人 日本介護予防推進協会
+                    </div>
+                </div>
+                <div class="footer-contact">
+                    <p>〒572-0838 大阪府寝屋川市下神田町28番2号</p>
+                    <p>TEL: 070-3204-9864</p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2026 NPO法人 日本介護予防推進協会 All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // スクロールフェードインアニメーション
+        const fadeInElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeInElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
