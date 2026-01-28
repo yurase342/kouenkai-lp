@@ -204,23 +204,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: var(--primary-navy);
+            background: linear-gradient(180deg, #3d5a7f 0%, var(--primary-navy) 50%, #1a3a5c 100%);
             color: var(--text-white);
             padding: 32px 64px;
             border-radius: 100px;
             text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             margin-top: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.9);
         }
 
         .hero-cta:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(45, 74, 111, 0.4);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .hero-cta-date {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 18px;
+            font-weight: 500;
             margin-bottom: 8px;
             display: flex;
             align-items: baseline;
@@ -228,12 +231,12 @@
         }
 
         .hero-cta-date .year {
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .hero-cta-date .day {
-            font-size: 36px;
-            font-weight: 900;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .hero-cta-date .weekday {
@@ -242,13 +245,14 @@
         }
 
         .hero-cta-date .time {
-            font-size: 18px;
+            font-size: 16px;
             margin-left: 12px;
         }
 
         .hero-cta-text {
-            font-size: 20px;
+            font-size: 32px;
             font-weight: 700;
+            margin-top: 4px;
         }
 
         .hero-cta-sub {
@@ -620,6 +624,20 @@
             font-size: 13px;
             color: var(--text-gray);
             margin-top: 4px;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--primary-navy);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .map-link:hover {
+            color: var(--accent-pink);
         }
 
         /* FAQ */
@@ -1211,7 +1229,7 @@
                         <span class="weekday">(金)</span>
                         <span class="time">18:30〜20:30</span>
                     </div>
-                    <div class="hero-cta-text">今すぐ講演会に申し込む</div>
+                    <div class="hero-cta-text">申し込みはここをクリック</div>
                     <div class="hero-cta-sub">オンライン参加可能</div>
                 </a>
             </div>
@@ -1386,6 +1404,7 @@
                     <div class="details-value">
                         寝屋川市立市民会館 3階 講義室
                         <div class="details-sub">大阪府寝屋川市秦町41番1号</div>
+                        <a href="https://www.google.com/maps?q=%E3%80%92572-0848+%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%AF%9D%E5%B1%8B%E5%B7%9D%E5%B8%82%E7%A7%A6%E7%94%BA%EF%BC%94%EF%BC%91%E2%88%92%EF%BC%91+%E5%AF%9D%E5%B1%8B%E5%B7%9D%E5%B8%82%E6%B0%91%E4%BC%9A%E9%A4%A8" target="_blank" class="map-link">Googleマップで見る →</a>
                     </div>
                 </div>
                 <div class="details-row">
@@ -1467,7 +1486,7 @@
                         <span class="weekday">(金)</span>
                         <span class="time">18:30〜20:30</span>
                     </div>
-                    <div class="hero-cta-text">今すぐ講演会に申し込む</div>
+                    <div class="hero-cta-text">申し込みはここをクリック</div>
                     <div class="hero-cta-sub">オンライン参加可能</div>
                 </a>
             </div>
